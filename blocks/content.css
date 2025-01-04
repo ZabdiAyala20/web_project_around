@@ -1,0 +1,120 @@
+.profile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 30px;
+    margin-left: 10%;
+  }
+  
+  .profile__image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #424242;
+  }
+  
+  .profile__info {
+    flex-grow: 1;
+  }
+  
+  .profile__name {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .profile__about {
+    font-size: 16px;
+    color: #bdbdbd;
+  }
+  .buttons__container{
+  
+    justify-content: space-between;
+  }
+    .profile__edit-button {
+      width:20px;
+      position: relative;
+      right: 50%;
+      background-color: rgb(0, 0, 0);
+      border: 1px solid white;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+  
+     .add__images-button{
+      position: relative;
+      right: 10%;
+      background-color: rgb(0, 0, 0);
+      border-style: none;
+      transition: background-color 0.3s;
+     }
+    .add__images-button:hover{
+      background-color: rgb(100, 158, 215);
+    }
+  .profile__edit-button:hover {
+    background-color: #2980b9;
+  }
+  
+
+
+  .images {
+    display: grid;
+    row-gap: 15px;
+    column-gap: 15px;
+    grid-template-columns: repeat(3, auto);
+    grid-template-rows:repeat(3, 1fr);
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .card {
+    margin: 0;
+    width: 300px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.3s;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+  }
+  
+  .card__image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+  }
+  
+  .card__title {
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #2c3e50;
+  }
+  
+  .card__like-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #e74c3c;
+    transition: color 0.3s;
+  }
+  
+  .card__like-button:hover {
+    color: #c0392b;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .images {
+      grid-template-columns: repeat(2, auto);
+    }
+    
+  }
