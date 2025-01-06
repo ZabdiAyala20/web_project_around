@@ -103,7 +103,7 @@
     object-fit: cover;
     border-style: none;
   } 
- .like__img-button{
+ .card__like-button{
   width: 20px;
   cursor: pointer;
   object-fit: cover;
