@@ -20,18 +20,16 @@
   }
   
   .profile__name {
+    overflow: auto;
     font-size: 24px;
     font-weight: bold;
     color: white;
   }
   
   .profile__about {
+    overflow: auto;
     font-size: 16px;
     color: #bdbdbd;
-  }
-  .buttons__container{
-  
-    justify-content: space-between;
   }
     .profile__edit-button {
       width:20px;
@@ -93,28 +91,83 @@
   }
   
   .card__title {
+    overflow: auto;
     padding: 10px;
     font-size: 18px;
     font-weight: bold;
     color: #2c3e50;
   }
-  
-  .card__like-button {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: #e74c3c;
-    transition: color 0.3s;
-  }
+  .card__like-button{
+    box-shadow: 5px 5px px rgba(71, 35, 35, );
+    border-radius: 40%;
+    object-fit: cover;
+    border-style: none;
+  } 
+ .like__img-button{
+  width: 20px;
+  cursor: pointer;
+  object-fit: cover;
+ }
   
   .card__like-button:hover {
-    color: #c0392b;
+    color: #515151;
+    background-color: rgba(63, 63, 63, 0.3);
+    border-radius: 50%;
   }
-  
-  @media screen and (max-width: 768px) {
-    .images {
-      grid-template-columns: repeat(2, auto);
+
+@media (max-width: 1167px) and (min-width: 769px) {
+  .profile__image {
+    width: 10%;
+    object-fit: cover;
+  }  
+  .images {
+      margin: 0 auto;
+        grid-template-columns: repeat(3, 1fr);
     }
-    
+    .profile__edit-button, .profile__add-button {
+        width: 80%;
+        margin: 0 auto;
+        position: static;
+        width: 50%;
+        flex-direction: column;
   }
+}
+  @media (max-width: 768px) {
+    .profile {
+        flex-direction: column;
+        text-align: center;
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+
+    .profile__edit-button, .profile__add-button {
+        width: 80%;
+        margin: 0 auto;
+        position: static;
+        width: 50%;
+    }
+    .images {
+      margin: 0 auto;
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+@media (max-width: 480px) {
+    .images {
+        grid-template-columns: repeat(1, 1fr);
+        margin: 0 auto;
+    }
+
+    .profile__name {
+        font-size: 20px;
+    }
+
+    .profile__about {
+        font-size: 14px;
+    }
+
+    .profile__edit-button, .profile__add-button {
+        width: 80%;
+    }
+}

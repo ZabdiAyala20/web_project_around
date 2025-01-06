@@ -3,6 +3,7 @@ const popup = document.querySelector('.popup');
 const formContainer = document.createElement('div');
 const profileName = document.querySelector('.profile__name');
 const profileAbout = document.querySelector('.profile__about');
+const likeButtons = document.querySelectorAll('.card__like-button');
 
 openFormButton.addEventListener('click', () => {
     formContainer.innerHTML = `
