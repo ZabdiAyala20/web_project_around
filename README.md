@@ -1,15 +1,14 @@
 # Tripleten web_project_around
 
-# Pagina funcinal 
- esta pagina usa javascript para tener una interacciòn con el usuario y sea una experiencia gratificante para el usuario 
+## Página funcional
+Esta página usa JavaScript para tener una interacción con el usuario y ofrecer una experiencia gratificante.
 
- # Tabla de contenidos
- 
- # caracterìsticas 
- - Diseño responsive
-- implementaciòn de javascript para interacciòn con el usuario
-- uso de Bem Y diseño interactivo
+## Características
+- Diseño responsive
+- Implementación de JavaScript para interacción con el usuario
+- Uso de BEM y diseño interactivo
 
-# instalaciòn 
- - clona este repositorio: ```bash git clone git@github.com:ZabdiAyala20/web_project_around.git
-
+## Instalación
+1. Clona este repositorio:
+   ```bash
+   git clone git@github.com:ZabdiAyala20/web_project_around.git
