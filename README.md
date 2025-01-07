@@ -11,4 +11,5 @@ Esta página usa JavaScript para tener una interacción con el usuario y ofrecer
 ## Instalación
 1. Clona este repositorio:
    ```bash
-   git clone git@github.com:ZabdiAyala20/web_project_around.git
+
+- git clone git@githubcom:ZabdiAyala20web_project_around.git
