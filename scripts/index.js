@@ -55,3 +55,13 @@ popup.addEventListener('submit', (event) => {
     popup.classList.remove('popup_visible');
     formContainer.innerHTML = ''; 
 });
+
+//funcion para mostrar mensaje de boton de fotos 
+
+function addPhotos(){
+    let photosButton = document.querySelector('.profile__add-button');
+    photosButton.addEventListener('click', () => {
+        alert('Funcionalidad en desarrollo');
+    });
+}
+addPhotos();

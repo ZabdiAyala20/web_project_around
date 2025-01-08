@@ -9,6 +9,7 @@
 }
 
 .profile__image {
+  overflow: hidden;
   width: 80px;
   height: 80px;
   border-radius: 50%;
@@ -84,6 +85,9 @@
   overflow: hidden;
   text-align: center;
   transition: transform 0.3s;
+  text-overflow: ellipsis;
+  max-width: 100%;  
+  white-space: nowrap;
 }
 
 .card:hover {
