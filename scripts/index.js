@@ -56,55 +56,58 @@ popup.addEventListener('submit', (event) => {
     formContainer.innerHTML = ''; 
 });
 
-//funcion para agregar imagenes 
+//funcion para agregar imagenes  :)
 
-const templateContainer = document.querySelector('#form-images'); 
-const container = document.querySelector('.images__add_form-container'); 
-const openImagesButton = document.querySelector('.profile__add-button'); 
+const templateContainer = document.querySelector('#form-images');
+const container = document.querySelector('.images__add_form-container');
+const openImagesButton = document.querySelector('.profile__add-button');
+
 let formVisible = false;
 
-// Evento para mostrar el formulario
 openImagesButton.addEventListener('click', () => {
     if (!formVisible) {
-        const clone = templateContainer.content.cloneNode(true); 
-        container.appendChild(clone); 
-        formVisible = true; 
+        const clone = templateContainer.content.cloneNode(true);
+        container.appendChild(clone);
+        formVisible = true;
 
-        const instructions = document.querySelector('.instructions');
-        instructions.setAttribute('hidden', true);
-       
-        const closeFormButton = container.querySelector('.close__add_button-images'); 
         const form = container.querySelector('.add__image-button-form');
-        
+        const closeFormButton = container.querySelector('.close__add_button-images');
+
         closeFormButton.addEventListener('click', () => {
-            form.remove(); 
-            formVisible = false; 
+            form.remove();
+            formVisible = false;
         });
 
-       
+            
         form.addEventListener('submit', (event) => {
             event.preventDefault();
-            const titleInput = form.querySelector('input[name="titulo"]').value; // Obtener el título
-            const urlInput = form.querySelector('input[name="url"]').value; // Obtener la URL de la imagen
+            const titleInput = form.querySelector('input[name="titulo"]').value.trim();
+            const urlInput = form.querySelector('input[name="url"]').value.trim();
 
-           
-            const cardTemplate = document.querySelector('#card__images'); 
-            const cardClone = cardTemplate.content.cloneNode(true); 
-            const cardTitle = cardClone.querySelector('.card__title'); 
-            const cardImage = document.createElement('img'); 
-            cardImage.className = 'card__image'; 
-            cardImage.src = urlInput; 
-            cardImage.alt = titleInput; 
-            cardTitle.textContent = titleInput; 
+            const cardTemplate = document.querySelector('#card__images');
+            const cardClone = cardTemplate.content.cloneNode(true);
 
-       
-            cardClone.querySelector('.card').prepend(cardImage);
+            cardClone.querySelector('.card__title').textContent = titleInput || 'Título predeterminado';
+
+        
+            if (urlInput) {
+                const cardImage = cardClone.querySelector('.card__image');
+                cardImage.src = urlInput;
+                cardImage.alt = titleInput || 'Imagen sin título';
+            }
+
             container.appendChild(cardClone); 
-
-          
-            form.remove(); 
-            formVisible = false; 
+            form.remove();
+            formVisible = false;
         });
     }
 });
 
+document.addEventListener('click', (event) => {
+    if (event.target.closest('.trash__button-image')) {
+      const card = event.target.closest('.card'); 
+      if (card) {
+        card.remove(); 
+      }
+    }
+  });

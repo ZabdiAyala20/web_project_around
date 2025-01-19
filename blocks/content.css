@@ -67,9 +67,10 @@
 } 
 .instructions{
   font-weight: 800;
-  font-size: xx-large;
+  font-size: 30PX;
   color: white;
   opacity: .5;
+  margin-bottom: 10PX;
 }
 .add__image-button-form{
   position: fixed;
@@ -126,7 +127,7 @@ box-shadow: 0 0 15px rgba(0,0,0,0.5);
 }
 
 .card {
-  margin: 0;
+  margin: 0 auto; 
   width: 300px;
   background-color: white;
   border-radius: 10px;
@@ -134,8 +135,7 @@ box-shadow: 0 0 15px rgba(0,0,0,0.5);
   overflow: hidden;
   text-align: center;
   transition: transform 0.3s;
-  text-overflow: ellipsis;
-  max-width: 100%;  
+  max-width: 100%;
   white-space: nowrap;
 }
 
@@ -144,35 +144,47 @@ box-shadow: 0 0 15px rgba(0,0,0,0.5);
 }
 
 .card__image {
+ border-radius: 6px;
   width: 100%;
   height: 150px;
-  object-fit: cover;
-}
-
-
-
-.card__like-button {
-  border-radius: 40%;
-  object-fit: cover;
-  border-style: none;
+  object-fit: cover; 
 }
 
 .card__info {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column; 
+  align-items: center;
+  gap: 10px; 
   padding: 10px;
 }
 
-.card__like-button {
-  width: 20px;
-  cursor: pointer;
-  object-fit: cover;
+.card__title {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+  text-overflow: ellipsis;
+  overflow: hidden; 
+  white-space: nowrap;
 }
 
-.card__like-button:hover {
-  color: #515151;
-  background-color: rgba(63, 63, 63, 0.3);
+.card__like-button {
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background-color: transparent; 
+  transition: background-color 0.3s;
+}
+.trash__button-image{
+  border-style: none;
+  cursor: pointer;
+}
+.trash__icon{
+  width: 20px;
+}
+.card__like-button:hover {
+  background-color: rgba(63, 63, 63, 0.3); 
 }
 
 @media (max-width: 1167px) and (min-width: 769px) {
