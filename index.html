@@ -29,61 +29,40 @@
   </div>
   <!--popup cierre-->
   
-      <div class="images">
-        <div class="card">
-          <img src="./images/monte.jpg" alt="Lugar" class="card__image">
-          <div class="card__info">
-            <p class="card__title">Lago Tahoe</p>
-            <button class="card__like-button"><img class="card__like-button" src="./images/likeButton.svg"></button>
-          </div>
-        </div>
-
-        <div class="card">
-            <img src="./images/campo_amarillo.jpg" alt="Lugar" class="card__image">
-            <div class="card__info">
-              <p class="card__title">Lago Tahoe</p>
-              <button class="card__like-button"><img class="card__like-button" src="./images/likeButton.svg"></button>
-            </div>
-          </div>
-
-          <div class="card">
-            <img src="./images/pueblo_rural.jpg" alt="Lugar" class="card__image">
-            <div class="card__info">
-              <p class="card__title">Lago Tahoe</p>
-              <button class="card__like-button"><img class="card__like-button" src="./images/likeButton.svg"></button>
-            </div>
-          </div>
-
-          <div class="card">
-            <img src="./images/rural_noche.jpg" alt="Lugar" class="card__image">
-            <div class="card__info">
-              <p class="card__title">Lago Tahoe</p>
-              <button class="card__like-button"><img class="card__like-button" src="./images/likeButton.svg"></button>
-            </div>
-          </div>
-
-          <div class="card">
-            <img src="./images/mar.jpg" alt="Lugar" class="card__image">
-            <div class="card__info">
-            <p class="card__title">Lago Tahoe</p>
-            <button class="card__like-button"><img class="card__like-button" src="./images/likeButton.svg"></button>
-          </div>
-          </div>
-
-          <div class="card">
-            <img src="./images/pueblo_de_agua.jpg" alt="Lugar" class="card__image">
-            <div class="card__info">
-              <p class="card__title">Lago Tahoe</p>
-              <button class="card__like-button"><img class="card__like-button" src="./images/likeButton.svg"></button>
-            </div>
-          </div>
-      </div>
+  <!-- bloque para agrgar imagenes  -->
+    <div class="images__add_form-container">
+      <p class="instructions">agrega tus fotos</p>
+    </div>
     </main>
 
     <footer class="footer">
       <p class="footer__text">  &copy; 2024 Zabdi Ayala Aguilar. Todos los derechos reservados.</p>
     </footer>
   </div>
+  <!-- Templates -->
+  <template id="form-images">
+    <form class="add__image-button-form">
+      <button class="close__add_button-images">✖️</button>
+      <h2 class="add__images-title">Nuevo lugar</h2>
+      <input class="input__images" type="text" id="titulo" name="titulo" placeholder="Título" >
+      <input class="input__images" type="url" id="url" name="url" placeholder="Enlace de la imagen">
+      <button class="add__image-button" type="submit">Crear</button>
+    </form>
+  </template>
+
+<template id="card__images">
+  <div class="card">
+    <div class="card__info">
+      <p class="card__title">Lago Tahoe</p>
+      <button class="card__like-button"><img class="card__like-button" src="./images/likeButton.svg"></button>
+    </div>
+  </div>
+</template> 
+<!-- Templates -->
+
+
+  <!--script-->
   <script src="./scripts/index.js"></script>
+  <!--script-->
 </body>
 </html>

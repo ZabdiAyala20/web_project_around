@@ -56,12 +56,55 @@ popup.addEventListener('submit', (event) => {
     formContainer.innerHTML = ''; 
 });
 
-//funcion para mostrar mensaje de boton de fotos 
+//funcion para agregar imagenes 
 
-function addPhotos(){
-    let photosButton = document.querySelector('.profile__add-button');
-    photosButton.addEventListener('click', () => {
-        alert('Funcionalidad en desarrollo');
-    });
-}
-addPhotos();
+const templateContainer = document.querySelector('#form-images'); 
+const container = document.querySelector('.images__add_form-container'); 
+const openImagesButton = document.querySelector('.profile__add-button'); 
+let formVisible = false;
+
+// Evento para mostrar el formulario
+openImagesButton.addEventListener('click', () => {
+    if (!formVisible) {
+        const clone = templateContainer.content.cloneNode(true); 
+        container.appendChild(clone); 
+        formVisible = true; 
+
+        const instructions = document.querySelector('.instructions');
+        instructions.setAttribute('hidden', true);
+       
+        const closeFormButton = container.querySelector('.close__add_button-images'); 
+        const form = container.querySelector('.add__image-button-form');
+        
+        closeFormButton.addEventListener('click', () => {
+            form.remove(); 
+            formVisible = false; 
+        });
+
+       
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const titleInput = form.querySelector('input[name="titulo"]').value; // Obtener el título
+            const urlInput = form.querySelector('input[name="url"]').value; // Obtener la URL de la imagen
+
+           
+            const cardTemplate = document.querySelector('#card__images'); 
+            const cardClone = cardTemplate.content.cloneNode(true); 
+            const cardTitle = cardClone.querySelector('.card__title'); 
+            const cardImage = document.createElement('img'); 
+            cardImage.className = 'card__image'; 
+            cardImage.src = urlInput; 
+            cardImage.alt = titleInput; 
+            cardTitle.textContent = titleInput; 
+
+       
+            cardClone.querySelector('.card').prepend(cardImage);
+            container.appendChild(cardClone); 
+
+          
+            form.remove(); 
+            formVisible = false; 
+        });
+    }
+});
+
