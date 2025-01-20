@@ -18,11 +18,17 @@
   object-fit: cover;
   border: 2px solid #424242;
 }
-
+.profile__info-container{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 .profile__info {
+  display: flex;
   flex-grow: 1;
 }
 .profile__name, .profile__about,.card__title {
+  max-width: calc(100% - 30px);
   font-size: 24px;
   font-weight: bold;
   color: white;
@@ -37,17 +43,22 @@
   font-size: 20px;
   font-weight: 300;
 }
-
+.button__edit-container{
+  margin-top: 10px;
+  margin-left: 10px;
+  flex-direction: row;
+  gap: 10px;
+}
 .profile__edit-button {
+  justify-content: end;
   width: 20px;
-  position: relative;
-  right: 50%;
   background-color: rgb(0, 0, 0);
   border: 1px solid white;
   font-size: 16px;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
+  flex-shrink: 0;
 }
 
 .profile__add-button {
@@ -91,26 +102,36 @@ box-shadow: 0 0 15px rgba(0,0,0,0.5);
   color: black;
 }
 .close__add_button-images{
-  width: fit-content;
-  border-style: none;
-  border-radius: 20px;
-  width: 20px;
-  background-color: transparent;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+  color: #333;
+  transition: color 0.3s ease;
+}
+.close__add_button-images:hover{
+  color: #000;
+  opacity: .5;
 }
 .input__images{
   padding: 5px;
-  border-style: none;
-  border-bottom: 2px solid rgb(58, 58, 58);
-  opacity: .7;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  opacity: .5;
 }
 .add__image-button{
   background-color: black;
   color: white;
   width: 100%;
   padding: 10px;
-  border-radius: 30px;
+  border-radius: 5px;
   border-style: none;
   transition: background-color 0.3s ease;
+  margin-top: 10px;
 }
 .add__image-button:hover{
   background-color: rgb(100, 158, 215);

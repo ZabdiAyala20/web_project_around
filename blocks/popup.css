@@ -68,7 +68,10 @@
   color: #333;
   transition: color 0.3s ease;
 }
-
+.popup__close-button:hover {
+  color: #000;
+  opacity: 0.5;
+}
 .popup_visible {
   display: block;
   opacity: 1;
