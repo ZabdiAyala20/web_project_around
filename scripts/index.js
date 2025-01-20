@@ -17,7 +17,7 @@ openFormButton.addEventListener('click', () => {
             </form>
         </div>
     `;
-    popup.appendChild(formContainer); 
+    popup.appendChild(formContainer);
     formContainer.querySelector('input[name="name"]').value = profileName.textContent.trim();
     formContainer.querySelector('input[name="about"]').value = profileAbout.textContent.trim();
     const nameInput = formContainer.querySelector('input[name="name"]');
@@ -40,12 +40,12 @@ openFormButton.addEventListener('click', () => {
 popup.addEventListener('click', (event) => {
     if (event.target === formContainer.querySelector('.popup__close-button')) {
         popup.classList.remove('popup_visible');
-        formContainer.innerHTML = ''; 
+        formContainer.innerHTML = '';
     }
 });
 
 popup.addEventListener('submit', (event) => {
-    event.preventDefault();  
+    event.preventDefault();
     const nameInput = formContainer.querySelector('input[name="name"]');
     const aboutInput = formContainer.querySelector('input[name="about"]');
 
@@ -53,10 +53,8 @@ popup.addEventListener('submit', (event) => {
     profileAbout.textContent = aboutInput.value;
 
     popup.classList.remove('popup_visible');
-    formContainer.innerHTML = ''; 
+    formContainer.innerHTML = '';
 });
-
-//funcion para agregar imagenes  :)
 
 const templateContainer = document.querySelector('#form-images');
 const container = document.querySelector('.images__add_form-container');
@@ -78,7 +76,6 @@ openImagesButton.addEventListener('click', () => {
             formVisible = false;
         });
 
-            
         form.addEventListener('submit', (event) => {
             event.preventDefault();
             const titleInput = form.querySelector('input[name="titulo"]').value.trim();
@@ -89,14 +86,13 @@ openImagesButton.addEventListener('click', () => {
 
             cardClone.querySelector('.card__title').textContent = titleInput || 'Título predeterminado';
 
-        
             if (urlInput) {
                 const cardImage = cardClone.querySelector('.card__image');
                 cardImage.src = urlInput;
                 cardImage.alt = titleInput || 'Imagen sin título';
             }
 
-            container.appendChild(cardClone); 
+            container.appendChild(cardClone);
             form.remove();
             formVisible = false;
         });
@@ -105,9 +101,29 @@ openImagesButton.addEventListener('click', () => {
 
 document.addEventListener('click', (event) => {
     if (event.target.closest('.trash__button-image')) {
-      const card = event.target.closest('.card'); 
-      if (card) {
-        card.remove(); 
-      }
+        const card = event.target.closest('.card');
+        if (card) {
+            card.remove();
+        }
     }
-  });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const container = document.querySelector('.images__add_form-container');
+    const cardTemplate = document.querySelector('#card__images');
+    const cardClone = cardTemplate.content.cloneNode(true);
+    cardClone.querySelector('.card__title').textContent = 'Imagen de inicio';
+    const cardImage = cardClone.querySelector('.card__image');
+    cardImage.src = './images/rural_noche.jpg';
+    cardImage.alt = 'Imagen predeterminada';
+    container.appendChild(cardClone);
+});
+
+
+document.addEventListener('click', (event) => {
+    if (event.target.closest('.card__like-button')) {
+        const likeButton = event.target.closest('.card__like-button');
+        likeButton.classList.toggle('liked');
+    }
+});
+
