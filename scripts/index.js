@@ -107,6 +107,18 @@ document.addEventListener('click', (event) => {
         }
     }
 });
+// funciones para que esten 6 tarjetas de inicio 
+document.addEventListener('DOMContentLoaded', () => {
+    const container = document.querySelector('.images__add_form-container');
+    const cardTemplate = document.querySelector('#card__images');
+    const cardClone = cardTemplate.content.cloneNode(true);
+    cardClone.querySelector('.card__title').textContent = 'Imagen de inicio';
+    const cardImage = cardClone.querySelector('.card__image');
+    cardImage.src = './images/rural_noche.jpg';
+    cardImage.src = './images/mar.jpg';
+    cardImage.alt = 'Imagen predeterminada';
+    container.appendChild(cardClone);
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.querySelector('.images__add_form-container');
@@ -115,6 +127,48 @@ document.addEventListener('DOMContentLoaded', () => {
     cardClone.querySelector('.card__title').textContent = 'Imagen de inicio';
     const cardImage = cardClone.querySelector('.card__image');
     cardImage.src = './images/rural_noche.jpg';
+    cardImage.alt = 'Imagen predeterminada';
+    container.appendChild(cardClone);
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const container = document.querySelector('.images__add_form-container');
+    const cardTemplate = document.querySelector('#card__images');
+    const cardClone = cardTemplate.content.cloneNode(true);
+    cardClone.querySelector('.card__title').textContent = 'Imagen de inicio';
+    const cardImage = cardClone.querySelector('.card__image');
+    cardImage.src = './images/campo_amarillo.jpg';
+    cardImage.alt = 'Imagen predeterminada';
+    container.appendChild(cardClone);
+});
+document.addEventListener('DOMContentLoaded', () => {
+    const container = document.querySelector('.images__add_form-container');
+    const cardTemplate = document.querySelector('#card__images');
+    const cardClone = cardTemplate.content.cloneNode(true);
+    cardClone.querySelector('.card__title').textContent = 'Imagen de inicio';
+    const cardImage = cardClone.querySelector('.card__image');
+    cardImage.src = './images/pueblo_rural.jpg';
+    cardImage.alt = 'Imagen predeterminada';
+    container.appendChild(cardClone);
+});
+document.addEventListener('DOMContentLoaded', () => {
+    const container = document.querySelector('.images__add_form-container');
+    const cardTemplate = document.querySelector('#card__images');
+    const cardClone = cardTemplate.content.cloneNode(true);
+    cardClone.querySelector('.card__title').textContent = 'Imagen de inicio';
+    const cardImage = cardClone.querySelector('.card__image');
+    cardImage.src = './images/pueblo_de_agua.jpg';
+    cardImage.alt = 'Imagen predeterminada';
+    container.appendChild(cardClone);
+});
+document.addEventListener('DOMContentLoaded', () => {
+    const container = document.querySelector('.images__add_form-container');
+    const cardTemplate = document.querySelector('#card__images');
+    const cardClone = cardTemplate.content.cloneNode(true);
+    cardClone.querySelector('.card__title').textContent = 'Imagen de inicio';
+    const cardImage = cardClone.querySelector('.card__image');
+    cardImage.src = './images/rural_noche.jpg';
+    cardImage.src = './images/mar.jpg';
     cardImage.alt = 'Imagen predeterminada';
     container.appendChild(cardClone);
 });
