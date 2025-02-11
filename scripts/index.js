@@ -5,14 +5,14 @@ const profileName = document.querySelector('.profile__name');
 const profileAbout = document.querySelector('.profile__about');
 const likeButtons = document.querySelectorAll('.card__like-button');
 
-openFormButton.addEventListener('click', () => {
+openFormButton.addEventListener('click', (evt) => {
     formContainer.innerHTML = `
         <div class="popup__container">
             <button class="popup__close-button">✖️</button>
             <form class="popup__form">
                 <h2 class="popup__title">Editar perfil</h2>
-                <input type="text" name="name" class="popup__input" placeholder="Nombre">
-                <input type="text" name="about" class="popup__input" placeholder="Acerca de mí">
+                <input type="text" name="name" class="popup__input" placeholder="Nombre" minlength="2" maxlength="30">
+                <input type="text" name="about" class="popup__input" placeholder="Acerca de mí" minlength="2" maxlength="30">
                 <button type="submit" class="popup__save-button" disabled>Guardar</button>
             </form>
         </div>

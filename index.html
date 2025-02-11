@@ -51,8 +51,8 @@
     <form class="add__image-button-form">
       <button class="close__add_button-images">✖️</button>
       <h2 class="add__images-title">Nuevo lugar</h2>
-      <input class="input__images" type="text" id="titulo" name="titulo" placeholder="Título" >
-      <input class="input__images" type="url" id="url" name="url" placeholder="Enlace de la imagen">
+      <input class="input__images" type="text" id="titulo" name="titulo" placeholder="Título" minlength="2" maxlength="30" required>
+      <input class="input__images" type="url" id="url" name="url" placeholder="Enlace de la imagen" minlength="2" required>
       <button class="add__image-button" type="submit">Crear</button>
     </form>
   </template>
