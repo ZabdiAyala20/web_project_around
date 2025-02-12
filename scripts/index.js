@@ -8,8 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const openImagesButton = document.querySelector('.profile__add-button');
     let formVisible = false;
 
-    // Función para abrir el formulario de edición
-    openFormButton.addEventListener('click', () => {
+    openFormButton.addEventListener('click', (evt) => {
+        evt.preventDefault();
         popup.innerHTML = `
             <div class="popup__container">
                 <button class="popup__close-button">✖️</button>
@@ -25,15 +25,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const nameInput = popup.querySelector('input[name="name"]');
         const aboutInput = popup.querySelector('input[name="about"]');
         const saveButton = popup.querySelector('.popup__save-button');
+
         nameInput.value = profileName.textContent.trim();
         aboutInput.value = profileAbout.textContent.trim();
 
-        const checkInputs = () => {
-            saveButton.disabled = !(nameInput.value.trim() && aboutInput.value.trim());
-        };
-
-        nameInput.addEventListener('input', checkInputs);
-        aboutInput.addEventListener('input', checkInputs);
+        // Llamamos a la función de validación desde validate.js
+        validateForm(nameInput, aboutInput, saveButton);
 
         popup.querySelector('.popup__close-button').addEventListener('click', () => {
             popup.classList.remove('popup_visible');
@@ -47,10 +44,11 @@ document.addEventListener('DOMContentLoaded', () => {
             popup.classList.remove('popup_visible');
             popup.innerHTML = '';
         });
-    });
+});
 
     // Función para abrir el formulario de agregar imágenes
-    openImagesButton.addEventListener('click', () => {
+    openImagesButton.addEventListener('click', (evt) => {
+        evt.preventDefault();
         if (!formVisible) {
             const clone = templateContainer.content.cloneNode(true);
             container.appendChild(clone);
@@ -59,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const form = container.querySelector('.add__image-button-form');
             const closeFormButton = container.querySelector('.close__add_button-images');
 
-            closeFormButton.addEventListener('click', () => {
+            closeFormButton.addEventListener('click', (evt) => {
                 form.remove();
                 formVisible = false;
             });
