@@ -1,19 +1,49 @@
-
+// card.js
 export class Card {
-    constructor(form) {
-        this.title = form.querySelector('input[name="titulo"]').value.trim();
-        this.url = form.querySelector('input[name="url"]').value.trim();
+    constructor(title, imageUrl, cardTemplateSelector) {
+        this.title = title;
+        this.imageUrl = imageUrl;
+        this.cardTemplateSelector = cardTemplateSelector;
     }
-    agregarNuevaImagen(container) {
-        const cardTemplate = document.querySelector('#card__images');
+
+
+    #getCardMarkup() {
+        const cardTemplate = document.querySelector(this.cardTemplateSelector);
         const cardClone = cardTemplate.content.cloneNode(true);
-        cardClone.querySelector('.card__title').textContent = this.title || 'Título predeterminado';
-        if (this.url) {
-            const cardImage = cardClone.querySelector('.card__image');
-            cardImage.src = this.url;
-            cardImage.alt = this.title || 'Imagen sin título';
-        }
-        container.appendChild(cardClone);
+        const cardTitle = cardClone.querySelector('.card__title');
+        const cardImage = cardClone.querySelector('.card__image');
+        
+        cardTitle.textContent = this.title || 'Título predeterminado';
+        cardImage.src = this.imageUrl || './images/default.jpg';
+        cardImage.alt = this.title || 'Imagen sin título';
+
+        return cardClone;
+    }
+
+    // Método privado para manejar el evento de like
+    #handleLikeButtonClick(event) {
+        event.target.classList.toggle('liked');
+    }
+
+    // Método privado para manejar el evento de eliminación
+    #handleDeleteButtonClick(event) {
+        event.target.closest('.card').remove();
+    }
+
+    // Método público para devolver una tarjeta completamente funcional
+    getCard() {
+        const cardMarkup = this.#getCardMarkup();
+        const likeButton = cardMarkup.querySelector('.card__like-button');
+        const deleteButton = cardMarkup.querySelector('.trash__button-image');
+
+        // Añadir listeners de eventos
+        likeButton.addEventListener('click', this.#handleLikeButtonClick);
+        deleteButton.addEventListener('click', this.#handleDeleteButtonClick);
+
+        return cardMarkup;
     }
 }
+
+
+
 
