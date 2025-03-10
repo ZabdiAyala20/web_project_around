@@ -1,4 +1,4 @@
-// Importa la clase Card
+
 import { Card } from './card.js';  
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -32,7 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
         nameInput.value = profileName.textContent.trim();
         aboutInput.value = profileAbout.textContent.trim();
 
-        // Llamamos a la función de validación desde validate.js
         validateForm(nameInput, aboutInput, saveButton);
 
         popup.querySelector('.popup__close-button').addEventListener('click', () => {
@@ -79,9 +78,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const titleInput = form.querySelector('input[name="titulo"]').value.trim();
         const urlInput = form.querySelector('input[name="url"]').value.trim();
         
-        const card = new Card(titleInput, urlInput, '#card__images'); // Usa la clase Card aquí
+        const card = new Card(titleInput, urlInput, '#card__images'); 
         const cardMarkup = card.getCard(); // Obtén la tarjeta ya preparada
-        container.appendChild(cardMarkup); // Agrega la tarjeta al contenedor
+        container.appendChild(cardMarkup); 
     }
 
     // Función para eliminar una tarjeta con botón de basura
@@ -99,7 +98,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Inicializar tarjetas de imágenes predefinidas (con Card)
     const imagenesIniciales = [
         './images/rural_noche.jpg',
         './images/mar.jpg',
@@ -110,11 +108,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     imagenesIniciales.forEach((src) => {
         const card = new Card('Título predeterminado', src, '#card__images');
-        const cardMarkup = card.getCard(); // Crear la tarjeta con Card
-        container.appendChild(cardMarkup); // Agregar la tarjeta al contenedor
+        const cardMarkup = card.getCard();
+        container.appendChild(cardMarkup); 
     });
 
-    // Función para dar "like" a una imagen
+
     document.addEventListener('click', (event) => {
         if (event.target.closest('.card__like-button')) {
             event.target.closest('.card__like-button').classList.toggle('liked');
