@@ -1,5 +1,5 @@
 // Importa la clase Card
-import { Card } from './card.js';  // Asegúrate de que la ruta sea correcta
+import { Card } from './card.js';  
 
 document.addEventListener('DOMContentLoaded', () => {
     const openFormButton = document.querySelector('.profile__edit-button');
