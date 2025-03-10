@@ -1,5 +1,5 @@
-import { validateForm } from './formValidator.js';
-import { addNewImage, initializeDefaultCards } from './card.js';
+// Importa la clase Card
+import { Card } from './card.js';  // Asegúrate de que la ruta sea correcta
 
 document.addEventListener('DOMContentLoaded', () => {
     const openFormButton = document.querySelector('.profile__edit-button');
@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const openImagesButton = document.querySelector('.profile__add-button');
     let formVisible = false;
 
-    // Editar perfil
     openFormButton.addEventListener('click', (evt) => {
         evt.preventDefault();
         popup.innerHTML = `
@@ -68,35 +67,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
             form.addEventListener('submit', (event) => {
                 event.preventDefault();
-                addNewImage(form, container);
+                agregarNuevaImagen(form);
                 form.remove();
                 formVisible = false;
             });
         }
     });
 
-    // Inicializar tarjetas de imágenes predefinidas
-    const imagenesIniciales = [
-        './images/rural_noche.jpg',
-        './images/mar.jpg',
-        './images/campo_amarillo.jpg',
-        './images/pueblo_rural.jpg',
-        './images/pueblo_de_agua.jpg'
-    ];
-
-    initializeDefaultCards(imagenesIniciales, container);
+    // Función para agregar una nueva imagen (con Card)
+    function agregarNuevaImagen(form) {
+        const titleInput = form.querySelector('input[name="titulo"]').value.trim();
+        const urlInput = form.querySelector('input[name="url"]').value.trim();
+        
+        const card = new Card(titleInput, urlInput, '#card__images'); // Usa la clase Card aquí
+        const cardMarkup = card.getCard(); // Obtén la tarjeta ya preparada
+        container.appendChild(cardMarkup); // Agrega la tarjeta al contenedor
+    }
 
     // Función para eliminar una tarjeta con botón de basura
     document.addEventListener('click', (event) => {
         if (event.target.closest('.trash__button-image')) {
             event.target.closest('.card').remove();
-        }
-    });
-
-    // Función para dar "like" a una imagen
-    document.addEventListener('click', (event) => {
-        if (event.target.closest('.card__like-button')) {
-            event.target.closest('.card__like-button').classList.toggle('liked');
         }
     });
 
@@ -107,4 +98,28 @@ document.addEventListener('DOMContentLoaded', () => {
             popup.innerHTML = '';
         }
     });
+
+    // Inicializar tarjetas de imágenes predefinidas (con Card)
+    const imagenesIniciales = [
+        './images/rural_noche.jpg',
+        './images/mar.jpg',
+        './images/campo_amarillo.jpg',
+        './images/pueblo_rural.jpg',
+        './images/pueblo_de_agua.jpg'
+    ];
+
+    imagenesIniciales.forEach((src) => {
+        const card = new Card('Título predeterminado', src, '#card__images');
+        const cardMarkup = card.getCard(); // Crear la tarjeta con Card
+        container.appendChild(cardMarkup); // Agregar la tarjeta al contenedor
+    });
+
+    // Función para dar "like" a una imagen
+    document.addEventListener('click', (event) => {
+        if (event.target.closest('.card__like-button')) {
+            event.target.closest('.card__like-button').classList.toggle('liked');
+        }
+    });
 });
+
+
