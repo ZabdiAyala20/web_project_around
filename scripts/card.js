@@ -1,4 +1,3 @@
-
 export class Card {
     constructor(title, url, templateId) {
         this.title = title;
@@ -18,7 +17,3 @@ export class Card {
         return cardClone;
     }
 }
-
-
-
-

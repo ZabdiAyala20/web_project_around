@@ -1,6 +1,4 @@
-
 import { Card } from './card.js';  
-
 document.addEventListener('DOMContentLoaded', () => {
     const openFormButton = document.querySelector('.profile__edit-button');
     const popup = document.querySelector('.popup');
@@ -13,32 +11,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     openFormButton.addEventListener('click', (evt) => {
         evt.preventDefault();
-        popup.innerHTML = `
-            <div class="popup__container">
-                <button class="popup__close-button">✖️</button>
-                <form class="popup__form">
-                    <h2 class="popup__title">Editar perfil</h2>
-                    <input type="text" name="name" class="popup__input" placeholder="Nombre" minlength="2" maxlength="30">
-                    <input type="text" name="about" class="popup__input" placeholder="Acerca de mí" minlength="2" maxlength="30">
-                    <button type="submit" class="popup__save-button" disabled>Guardar</button>
-                </form>
-            </div>`;
+        const template = document.querySelector('#popup-template');
+        const popupClone = template.content.cloneNode(true);
+    
+        popup.innerHTML = '';
+        popup.appendChild(popupClone);
         popup.classList.add('popup_visible');
+
 
         const nameInput = popup.querySelector('input[name="name"]');
         const aboutInput = popup.querySelector('input[name="about"]');
         const saveButton = popup.querySelector('.popup__save-button');
-
+    
         nameInput.value = profileName.textContent.trim();
         aboutInput.value = profileAbout.textContent.trim();
-
+    
+        // Llamamos a la función de validación (debes asegurarte de que está definida)
         validateForm(nameInput, aboutInput, saveButton);
-
+    
+        // Botón para cerrar el popup
         popup.querySelector('.popup__close-button').addEventListener('click', () => {
             popup.classList.remove('popup_visible');
             popup.innerHTML = '';
         });
-
+    
+        // Evento para guardar los cambios del formulario
         popup.querySelector('.popup__form').addEventListener('submit', (event) => {
             event.preventDefault();
             profileName.textContent = nameInput.value;
@@ -47,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
             popup.innerHTML = '';
         });
     });
+    
 
     // Función para abrir el formulario de agregar imágenes
     openImagesButton.addEventListener('click', (evt) => {
@@ -66,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             form.addEventListener('submit', (event) => {
                 event.preventDefault();
-                agregarNuevaImagen(form);
+                addNewImage(form);
                 form.remove();
                 formVisible = false;
             });
@@ -74,13 +72,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Función para agregar una nueva imagen (con Card)
-    function agregarNuevaImagen(form) {
+    function addNewImage(form) {
         const titleInput = form.querySelector('input[name="titulo"]').value.trim();
         const urlInput = form.querySelector('input[name="url"]').value.trim();
         
         const card = new Card(titleInput, urlInput, '#card__images'); 
-        const cardMarkup = card.getCard(); // Obtén la tarjeta ya preparada
-        container.appendChild(cardMarkup); 
+        const cardMarkup = card.getCard(); 
+        container.prepend(cardMarkup); 
     }
 
     // Función para eliminar una tarjeta con botón de basura
@@ -119,5 +117,3 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
-
-
