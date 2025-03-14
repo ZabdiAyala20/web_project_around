@@ -6,34 +6,35 @@ export class FormValidator {
         this.inputList = Array.from(formElement.querySelectorAll(this.config.inputSelector));
     }
     // Método privado para comprobar si el campo es válido
-    #checkInputValidity(inputElement) {
-        if (inputElement.validity.valid) {
-            this.#showInputError(inputElement);
+    _checkInputValidity(inputElement) {
+        if (!inputElement.validity.valid) {
+            this._showInputError(inputElement, inputElement.validationMessage);
         } else {
-            this.#showInputError(inputElement, inputElement.validationMessage);
+            this._showInputError(inputElement, '');
         }
+        
     }
     // Método privado para mostrar un error en el campo
-    #showInputError(inputElement, errorMessage = '') {
+    _showInputError(inputElement, errorMessage = '') {
         const errorElement = this.formElement.querySelector(`#${inputElement.id}-error`);
         errorElement.textContent = errorMessage;
     }
     // Método privado para comprobar si el formulario es válido
-    #toggleSubmitButton() {
+    _toggleSubmitButton() {
         const hasInvalidInput = this.inputList.some(input => !input.validity.valid);
         this.submitButton.disabled = hasInvalidInput;
     }
     // Método privado para añadir los escuchadores de eventos a los campos
-    #setEventListeners() {
+    _setEventListeners() {
         this.inputList.forEach(input => {
             input.addEventListener('input', (event) => {
-                this.#checkInputValidity(event.target);
-                this.#toggleSubmitButton();
+                this._checkInputValidity(event.target);
+                this._toggleSubmitButton();
             });
         });
     }
     // Método público para activar la validación del formulario
     enableValidation() {
-        this.#setEventListeners();
+        this._setEventListeners();
     }
 }
