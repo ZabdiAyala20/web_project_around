@@ -12,10 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const openImagesButton = document.querySelector('.profile__add-button');
     let formVisible = false;
 
-    //  Función para abrir el Popup de edición del perfil
     function openPopup() {
         const popupTemplate = document.querySelector('#popup-template').content.cloneNode(true);
-        
         popup.innerHTML = ''; 
         popup.appendChild(popupTemplate);
         popup.classList.add('popup_visible');
@@ -36,7 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         validator.enableValidation();
 
-        // Guardar cambios en el perfil
         form.addEventListener('submit', (event) => {
             event.preventDefault();
             profileName.textContent = nameInput.value;
@@ -45,27 +42,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    //  Función para cerrar popup
     function closePopup() {
         popup.classList.remove('popup_visible');
         popupOverlay.style.display = 'none'; 
         popup.innerHTML = ''; 
     }
 
-    //  Evento para abrir el popup de edición de perfil
     openFormButton.addEventListener('click', (event) => {
         event.preventDefault();
         openPopup();
     });
 
-    //  Cerrar popup al hacer clic en el overlay o botón de cerrar
     document.addEventListener('click', (event) => {
         if (event.target.classList.contains('popup__close-button') || event.target.classList.contains('popup__overlay')) {
             closePopup();
         }
     });
 
-    //  Cerrar popup con la tecla "Escape"
     document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape' && popup.classList.contains('popup_visible')) {
             closePopup();
@@ -80,13 +73,13 @@ document.addEventListener('DOMContentLoaded', () => {
             formVisible = true;
 
             const form = container.querySelector('.add__image-button-form');
-            const closeFormButton = form.querySelector('.form__close-button');
+            const closeFormButton = form.querySelector('.close__add_button-images');
 
-            // 📌 Cerrar el formulario de imágenes
             closeFormButton.addEventListener('click', () => {
                 form.remove();
                 formVisible = false;
             });
+
             form.addEventListener('submit', (event) => {
                 event.preventDefault();
                 addNewImage(form);
@@ -109,6 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const cardMarkup = card.getCard();
         document.querySelector('.content').prepend(cardMarkup);
     }
+
     const initialImages = [
         './images/rural_noche.jpg',
         './images/mar.jpg',
@@ -118,18 +112,21 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     initialImages.forEach((imageUrl) => {
-        const card = new Card('Título predeterminado', imageUrl, '#card-template');
+        const card = new Card('Título predeterminado', imageUrl, '#card__images');
         const cardMarkup = card.getCard();
-        document.querySelector('.content').appendChild(cardMarkup);
+        document.querySelector('.images__add_form-container').appendChild(cardMarkup);
     });
+
     document.addEventListener('click', (event) => {
         if (event.target.closest('.trash__button-image')) {
             event.target.closest('.card').remove();
         }
     });
+
     document.addEventListener('click', (event) => {
         if (event.target.closest('.card__like-button')) {
             event.target.closest('.card__like-button').classList.toggle('liked');
         }
     });
 });
+

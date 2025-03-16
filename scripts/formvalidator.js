@@ -17,13 +17,20 @@ export class FormValidator {
     // Método privado para mostrar un error en el campo
     _showInputError(inputElement, errorMessage = '') {
         const errorElement = this.formElement.querySelector(`#${inputElement.id}-error`);
-        errorElement.textContent = errorMessage;
+        if (errorElement) {
+            errorElement.textContent = errorMessage;
+            errorElement.style.display = errorMessage ? 'block' : 'none';
+        }
     }
+    
     // Método privado para comprobar si el formulario es válido
     _toggleSubmitButton() {
         const hasInvalidInput = this.inputList.some(input => !input.validity.valid);
-        this.submitButton.disabled = hasInvalidInput;
+        if (this.submitButton) {
+            this.submitButton.disabled = hasInvalidInput;
+        }
     }
+    
     // Método privado para añadir los escuchadores de eventos a los campos
     _setEventListeners() {
         this.inputList.forEach(input => {
