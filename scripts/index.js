@@ -1,5 +1,8 @@
-import { Card } from './card.js';
-import { FormValidator } from './formvalidator.js';
+import { Card } from './components/card.js';
+import { FormValidator } from './components/FormValidator.js';
+import { Section } from './components/Section.js';
+import Popup from "./Popup.js";
+import PopupWithImage from "./components/PopupWithImage.js";
 
 document.addEventListener('DOMContentLoaded', () => {
     const openFormButton = document.querySelector('.profile__edit-button');
@@ -11,6 +14,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const container = document.querySelector('.images__add_form-container');
     const openImagesButton = document.querySelector('.profile__add-button');
     let formVisible = false;
+
+    // 🔹 Instancia del popup de imágenes
+    const imagePopup = new PopupWithImage('.popup_type_image');
+
+    function handleCardClick(url, title) {
+        imagePopup.open({ src: url, alt: title });
+    }
 
     function openPopup() {
         const popupTemplate = document.querySelector('#popup-template').content.cloneNode(true);
@@ -98,21 +108,22 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const card = new Card(titleInput, urlInput, '#card__images');
+        const card = new Card(titleInput, urlInput, '#card__images', handleCardClick);
         const cardMarkup = card.getCard();
         document.querySelector('.content').prepend(cardMarkup);
     }
 
+    // 🔹 Array de imágenes iniciales con títulos
     const initialImages = [
-        './images/rural_noche.jpg',
-        './images/mar.jpg',
-        './images/campo_amarillo.jpg',
-        './images/pueblo_rural.jpg',
-        './images/pueblo_de_agua.jpg'
+        { title: "Rural de noche", url: './images/rural_noche.jpg' },
+        { title: "Mar", url: './images/mar.jpg' },
+        { title: "Campo amarillo", url: './images/campo_amarillo.jpg' },
+        { title: "Pueblo rural", url: './images/pueblo_rural.jpg' },
+        { title: "Pueblo de agua", url: './images/pueblo_de_agua.jpg' }
     ];
 
-    initialImages.forEach((imageUrl) => {
-        const card = new Card('Título predeterminado', imageUrl, '#card__images');
+    initialImages.forEach(({ title, url }) => {
+        const card = new Card(title, url, '#card__images', handleCardClick);
         const cardMarkup = card.getCard();
         document.querySelector('.images__add_form-container').appendChild(cardMarkup);
     });
@@ -129,4 +140,3 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
-
