@@ -1,13 +1,16 @@
-import { Card } from './components/card.js';
-import { FormValidator } from './components/FormValidator.js';
-import { Section } from './components/Section.js';
-import Popup from "./Popup.js";
-import PopupWithImage from "./components/PopupWithImage.js";
+import {Card} from './components/card.js';
+import {FormValidator} from './components/FormValidator.js';
+console.log(document.querySelector('.images__add_form-container'));
+
+import {Section} from './components/Section.js';
+import {Popup} from './components/Popup.js';
+import PopupWithImage from './components/PopupWithImage.js';
+import UserInfo from './components/UserInfo.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const openFormButton = document.querySelector('.profile__edit-button');
     const popup = document.querySelector('.popup');
-    const popupOverlay = document.querySelector('.popup__overlay'); 
+    const popupOverlay = document.querySelector('.popup__overlay');
     const profileName = document.querySelector('.profile__name');
     const profileAbout = document.querySelector('.profile__about');
     const templateContainer = document.querySelector('#form-images');
@@ -17,21 +20,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 🔹 Instancia del popup de imágenes
     const imagePopup = new PopupWithImage('.popup_type_image');
-
+    
     function handleCardClick(url, title) {
         imagePopup.open({ src: url, alt: title });
     }
 
+    // 🔹 Inicialización de la sección de tarjetas
+    const section = new Section({
+        items: [
+            { title: "Rural de noche", url: './images/rural_noche.jpg' },
+            { title: "Mar", url: './images/mar.jpg' },
+            { title: "Campo amarillo", url: './images/campo_amarillo.jpg' },
+            { title: "Pueblo rural", url: './images/pueblo_rural.jpg' },
+            { title: "Pueblo de agua", url: './images/pueblo_de_agua.jpg' }
+        ],
+        renderer: ({ title, url }) => {
+            const card = new Card(title, url, '#card__images', handleCardClick);
+            const cardMarkup = card.getCard();
+            section.addItem(cardMarkup);
+        }
+    }, '.images__add_form-container');
+
+    section.render();
+
     function openPopup() {
         const popupTemplate = document.querySelector('#popup-template').content.cloneNode(true);
-        popup.innerHTML = ''; 
+        popup.innerHTML = '';
         popup.appendChild(popupTemplate);
         popup.classList.add('popup_visible');
-        popupOverlay.style.display = 'block'; 
+        popupOverlay.style.display = 'block';
 
         const nameInput = popup.querySelector('input[name="name"]');
         const aboutInput = popup.querySelector('input[name="about"]');
-        const saveButton = popup.querySelector('.popup__save-button');
 
         nameInput.value = profileName.textContent.trim();
         aboutInput.value = profileAbout.textContent.trim();
@@ -41,7 +61,6 @@ document.addEventListener('DOMContentLoaded', () => {
             inputSelector: 'input',
             submitButtonSelector: '.popup__save-button'
         }, form);
-        
         validator.enableValidation();
 
         form.addEventListener('submit', (event) => {
@@ -54,8 +73,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function closePopup() {
         popup.classList.remove('popup_visible');
-        popupOverlay.style.display = 'none'; 
-        popup.innerHTML = ''; 
+        popupOverlay.style.display = 'none';
+        popup.innerHTML = '';
     }
 
     openFormButton.addEventListener('click', (event) => {
@@ -110,23 +129,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const card = new Card(titleInput, urlInput, '#card__images', handleCardClick);
         const cardMarkup = card.getCard();
-        document.querySelector('.content').prepend(cardMarkup);
+        section.addItem(cardMarkup);
     }
-
-    // 🔹 Array de imágenes iniciales con títulos
-    const initialImages = [
-        { title: "Rural de noche", url: './images/rural_noche.jpg' },
-        { title: "Mar", url: './images/mar.jpg' },
-        { title: "Campo amarillo", url: './images/campo_amarillo.jpg' },
-        { title: "Pueblo rural", url: './images/pueblo_rural.jpg' },
-        { title: "Pueblo de agua", url: './images/pueblo_de_agua.jpg' }
-    ];
-
-    initialImages.forEach(({ title, url }) => {
-        const card = new Card(title, url, '#card__images', handleCardClick);
-        const cardMarkup = card.getCard();
-        document.querySelector('.images__add_form-container').appendChild(cardMarkup);
-    });
 
     document.addEventListener('click', (event) => {
         if (event.target.closest('.trash__button-image')) {
