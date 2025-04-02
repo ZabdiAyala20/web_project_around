@@ -15,8 +15,6 @@ export class Card {
             const cardImage = cardClone.querySelector('.card__image');
             cardImage.src = this.url;
             cardImage.alt = this.title || 'Imagen sin título';
-
-            // 🔹 Agregar evento para abrir el popup
             cardImage.addEventListener('click', () => {
                 this.handleCardClick({ src: this.url, alt: this.title });
             });
