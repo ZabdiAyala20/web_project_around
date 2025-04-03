@@ -1,7 +1,5 @@
 import {Card} from './components/card.js';
 import {FormValidator} from './components/FormValidator.js';
-console.log(document.querySelector('.images__add_form-container'));
-
 import {Section} from './components/Section.js';
 import {Popup} from './components/Popup.js';
 import PopupWithImage from './components/PopupWithImage.js';
@@ -17,15 +15,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const container = document.querySelector('.images__add_form-container');
     const openImagesButton = document.querySelector('.profile__add-button');
     let formVisible = false;
-
-    // 🔹 Instancia del popup de imágenes
     const imagePopup = new PopupWithImage('.popup_type_image');
     
     function handleCardClick(url, title) {
         imagePopup.open({ src: url, alt: title });
     }
-
-    // 🔹 Inicialización de la sección de tarjetas
     const section = new Section({
         items: [
             { title: "Rural de noche", url: './images/rural_noche.jpg' },
@@ -41,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, '.images__add_form-container');
 
-    section.render();
+    section.renderItems();
 
     function openPopup() {
         const popupTemplate = document.querySelector('#popup-template').content.cloneNode(true);
