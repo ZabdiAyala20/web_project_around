@@ -87,7 +87,7 @@
   color: #000;
   opacity: 0.5;
 }
-.popup_visible {
+.popup_opened {
   display: flex;
   opacity: 1;
 }
@@ -96,6 +96,36 @@
   cursor: not-allowed;        
   opacity: 0.6;               
 }
+
+.popup__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0); 
+  z-index: 999; 
+}
+
+.popup_type_image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff27;
+  border-radius: 10px;
+}
+
+.popup_visible .popup__overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.popup__image {
+  max-width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+}
+
 
 @media (max-width: 768px) {
   .popup {

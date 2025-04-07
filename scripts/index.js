@@ -4,8 +4,10 @@ import {Section} from './components/Section.js';
 import {Popup} from './components/Popup.js';
 import PopupWithImage from './components/PopupWithImage.js';
 import UserInfo from './components/UserInfo.js';
+//import '../components/PopupWithForm.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+    const imagePopup = new PopupWithImage('.popup_type_image');
     const openFormButton = document.querySelector('.profile__edit-button');
     const popup = document.querySelector('.popup');
     const popupOverlay = document.querySelector('.popup__overlay');
@@ -13,29 +15,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const profileAbout = document.querySelector('.profile__about');
     const templateContainer = document.querySelector('#form-images');
     const container = document.querySelector('.images__add_form-container');
-    const openImagesButton = document.querySelector('.profile__add-button');
+    const openImagesButton = document.querySelector('.profile__add-button');    
     let formVisible = false;
-    const imagePopup = new PopupWithImage('.popup_type_image');
+
     
-    function handleCardClick(url, title) {
-        imagePopup.open({ src: url, alt: title });
+    
+    function handleCardClick({src, alt}) {
+        imagePopup.open({ src, alt });
     }
     const section = new Section({
-        items: [
-            { title: "Rural de noche", url: './images/rural_noche.jpg' },
-            { title: "Mar", url: './images/mar.jpg' },
-            { title: "Campo amarillo", url: './images/campo_amarillo.jpg' },
-            { title: "Pueblo rural", url: './images/pueblo_rural.jpg' },
-            { title: "Pueblo de agua", url: './images/pueblo_de_agua.jpg' }
-        ],
-        renderer: ({ title, url }) => {
-            const card = new Card(title, url, '#card__images', handleCardClick);
-            const cardMarkup = card.getCard();
-            section.addItem(cardMarkup);
-        }
-    }, '.images__add_form-container');
+  items: [
+    { title: "Rural de noche", url: './images/rural_noche.jpg' },
+    { title: "Mar", url: './images/mar.jpg' },
+    { title: "Campo amarillo", url: './images/campo_amarillo.jpg' },
+    { title: "Pueblo rural", url: './images/pueblo_rural.jpg' },
+    { title: "Pueblo de agua", url: './images/pueblo_de_agua.jpg' }
+  ],
+  renderer: ({ title, url }) => {
+    const card = new Card(title, url, '#card__images', handleCardClick);
+    const cardMarkup = card.getCard();
+    section.addItem(cardMarkup);
+  }
+}, '.images__add_form-container');
 
-    section.renderItems();
+section.renderItems();
+
 
     function openPopup() {
         const popupTemplate = document.querySelector('#popup-template').content.cloneNode(true);

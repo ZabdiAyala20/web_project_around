@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="author" content="Zabdi Ayala Aguilar">
-  <title>Alrededor  </title>
+  <title>Alrededor</title>
   <link rel="stylesheet" href="./pages/index.css">
 </head>
 <body>
@@ -17,44 +17,56 @@
       <section class="profile">
         <img class="profile__image" src="./images/perfil.jpeg" alt="Perfil">
         <div class="profile__info">
-
-        <div class="profile__info-container">
-          <h2 class="profile__name">Jacques Cousteau</h2>
-          <p class="profile__about">Explorador</p>
-        </div>
-        
+          <div class="profile__info-container">
+            <h2 class="profile__name">Jacques Cousteau</h2>
+            <p class="profile__about">Explorador</p>
+          </div>
           <div class="button__edit-container">
-          <button class="profile__edit-button"><img src="./images/Vector.png" alt="boton de ediciòn"></button>
+            <button class="profile__edit-button">
+              <img src="./images/Vector.png" alt="botón de edición">
+            </button>
+          </div>
         </div>
-        </div>
-        
-        <button class="profile__add-button" ><img src="./images/Add Button.svg" alt="boton para agregar imagenes"></button>
+        <button class="profile__add-button">
+          <img src="./images/Add Button.svg" alt="botón para agregar imágenes">
+        </button>
       </section>
-          <!-- Popup -->
-  <div class="popup">
 
-  </div>
-  <div class="popup__overlay"></div>
+      <!-- Popup de editar perfil -->
+      <div class="popup popup_type_edit">
+        <div class="popup__overlay"></div>
+        <div class="popup__container">
+          <button class="popup__close-button" type="button">✖️</button>
+          <!-- Se inyecta el contenido del template -->
+        </div>
+      </div>
 
-  <!--popup cierre-->
-  
-  <!-- bloque para agergar imagenes  -->
-  <div class="images__add_form-container">
-  </div>
-  
+      <!-- Popup para imagen ampliada -->
+      <div class="popup popup_type_image">
+        <div class="popup__overlay"></div>
+        <div class="popup__container">
+          <button class="popup__close-button" type="button">✖️</button>
+          <img class="popup__image" src="" alt="">
+          <p class="popup__caption"></p>
+        </div>
+      </div>
+
+      <!-- Bloque para agregar imágenes -->
+      <div class="images__add_form-container"></div>
     </main>
 
     <footer class="footer">
-      <p class="footer__text">  &copy; 2024 Zabdi Ayala Aguilar. Todos los derechos reservados.</p>
+      <p class="footer__text">&copy; 2024 Zabdi Ayala Aguilar. Todos los derechos reservados.</p>
     </footer>
   </div>
+
   <!-- Templates -->
   <template id="form-images">
     <form class="add__image-button-form">
-      <button class="close__add_button-images">✖️</button>
+      <button class="close__add_button-images" type="button">✖️</button>
       <h2 class="add__images-title">Nuevo lugar</h2>
-      <input class="input__images" type="text" id="titulo" name="titulo" placeholder="Título" minlength="2" maxlength="30" required>
-      <input class="input__images" type="url" id="url" name="url" placeholder="Enlace de la imagen" minlength="2" required>
+      <input class="input__images" type="text" id="titulo" name="titulo" placeholder="Título" minlength="2" maxlength="30" required autocomplete="off">
+      <input class="input__images" type="url" id="url" name="url" placeholder="Enlace de la imagen" minlength="2" required autocomplete="off">
       <button class="add__image-button" type="submit">Crear</button>
     </form>
   </template>
@@ -67,34 +79,29 @@
         </button>
         <img class="card__image" src="./images/rural_noche.jpg" alt="Imagen predeterminada">
         <div class="like-text__container">
-        <p class="card__title">Pon el titulo</p>
-        <button class="card__like-button"><img class="card__like-button" src="./images/likeButton.svg"></button>
-      </div>
+          <p class="card__title">Pon el título</p>
+          <button class="card__like-button">
+            <img class="card__like-button" src="./images/likeButton.svg">
+          </button>
+        </div>
       </div>
     </div>
   </template>
 
   <template id="popup-template">
     <div class="popup__container">
-        <button class="popup__close-button">✖️</button>
-        <form class="popup__form">
-            <h2 class="popup__title">Editar perfil</h2>
-            <input type="text" id="name" name="name" class="popup__input" placeholder="Nombre" minlength="2" maxlength="30" required>
-            <span id="name-error" class="popup__error"></span>
-            <input type="text" id="about" name="about" class="popup__input" placeholder="Acerca de mí" minlength="2" maxlength="30" required>
-            <span id="about-error" class="popup__error"></span>
-            <button type="submit" class="popup__save-button" disabled>Guardar</button>
-        </form>
+      <button class="popup__close-button" type="button">✖️</button>
+      <form class="popup__form">
+        <h2 class="popup__title">Editar perfil</h2>
+        <input type="text" id="name" name="name" class="popup__input" placeholder="Nombre" minlength="2" maxlength="30" required  autocomplete="off">
+        <span id="name-error" class="popup__error"></span>
+        <input type="text" id="about" name="about" class="popup__input" placeholder="Acerca de mí" minlength="2" maxlength="30" required  autocomplete="off">
+        <span id="about-error" class="popup__error"></span>
+        <button type="submit" class="popup__save-button" disabled>Guardar</button>
+      </form>
     </div>
-</template>
+  </template>
 
-
-<!-- Templates -->
-
-
-  <!--script-->
-  <script  type="module" src="./scripts/index.js"></script>
-
-  <!--script-->
+  <script type="module" src="./scripts/index.js"></script>
 </body>
 </html>
