@@ -4,7 +4,7 @@ export class Card {
         this.url = url;
         this.templateId = templateId;
         this.handleCardClick = handleCardClick;
-    }
+    } 
 
     getCard() {
         const cardTemplate = document.querySelector(this.templateId);

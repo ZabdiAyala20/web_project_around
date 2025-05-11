@@ -6,6 +6,35 @@ import PopupWithImage from './components/PopupWithImage.js';
 import UserInfo from './components/UserInfo.js';
 //import '../components/PopupWithForm.js';
 
+fetch("https://around-api.es.tripleten-services.com/v1/users/me", {
+    headers: {
+      authorization: "b3c28384-40c7-4662-9598-a18e9b848d0e"
+    }
+  })
+    .then(res => res.json())
+    .then(data => {
+     
+      userInfo.setUserInfo({
+        name: data.name,
+        about: data.about
+      });
+      userInfo.setUserAvatar(data.avatar);
+    })
+    .catch(err => console.log(err));
+    fetch("https://around-api.es.tripleten-services.com/v1/cards/", {
+        headers: {
+          authorization: "b3c28384-40c7-4662-9598-a18e9b848d0e"
+        }
+      })
+        .then(res => res.json())
+        .then(cards => {
+          cards.forEach(cardData => {
+            const card = createCard(cardData); 
+            section.addItem(card); 
+          });
+        })
+        .catch(err => console.log(err));
+      
 document.addEventListener('DOMContentLoaded', () => {
     const imagePopup = new PopupWithImage('.popup_type_image');
     const openFormButton = document.querySelector('.profile__edit-button');
