@@ -4,7 +4,7 @@
       this._closeButton = this._popup.querySelector('.popup__close-button');
       this._handleEscClose = this._handleEscClose.bind(this);
     }
-  
+    
     open() {
       this._popup.classList.add('popup_opened');
       document.addEventListener('keydown', this._handleEscClose);
