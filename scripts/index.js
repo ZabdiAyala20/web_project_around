@@ -44,11 +44,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const localSection = new Section({
     items: [
-      { title: "Rural de noche", url: './images/rural_noche.jpg' },
-      { title: "Mar", url: './images/mar.jpg' },
-      { title: "Campo amarillo", url: './images/campo_amarillo.jpg' },
-      { title: "Pueblo rural", url: './images/pueblo_rural.jpg' },
-      { title: "Pueblo de agua", url: './images/pueblo_de_agua.jpg' }
+      { title: "Rural de noche", url: '../images/rural_noche.jpg' },
+      { title: "Mar", url: '../images/mar.jpg' },
+      { title: "Campo amarillo", url: '../images/campo_amarillo.jpg' },
+      { title: "Pueblo rural", url: '../images/pueblo_rural.jpg' },
+      { title: "Pueblo de agua", url: '../images/pueblo_de_agua.jpg' }
     ],
     renderer: ({ title, url }) => {
       const card = createCard(title, url);
