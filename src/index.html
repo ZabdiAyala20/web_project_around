@@ -22,6 +22,7 @@
             <p class="profile__about">Explorador</p>
           </div>
           <div class="button__edit-container">
+            <!-- Botón para editar perfil -->
             <button class="profile__edit-button">
               <img src="../images/Vector.png" alt="botón de edición">
             </button>
@@ -37,8 +38,25 @@
         <div class="popup__overlay"></div>
         <div class="popup__container">
           <button class="popup__close-button" type="button">✖️</button>
+          <form class="form" name="edit-profile-form">
+            <h2 class="form__title">Editar perfil</h2>
+            <input type="text" name="name" class="form__input" placeholder="Nombre" required />
+            <input type="text" name="about" class="form__input" placeholder="Profesión" required />
+            <button type="submit" class="form__submit-button">Guardar</button>
+          </form>
         </div>
       </div>
+      
+        <!-- Popup de imagen -->
+<div class="popup popup_type_image">
+  <div class="popup__overlay"></div>
+  <div class="popup__container popup__container_image">
+    <button class="popup__close-button" type="button" aria-label="Cerrar"></button>
+    <img src="#" alt="Imagen ampliada" class="popup__image">
+    <p class="popup__caption"></p>
+  </div>
+</div>
+
 
       <!-- Popup para imagen ampliada -->
       <div class="popup popup_type_image">
@@ -52,6 +70,11 @@
 
       <!-- Bloque para agregar imágenes -->
       <div class="images__add_form-container"></div>
+      
+      <section class="cards">
+        <ul class="cards__list"></ul>
+      </section>
+      
     </main>
 
     <footer class="footer">

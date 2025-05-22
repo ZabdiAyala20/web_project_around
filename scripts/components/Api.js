@@ -72,7 +72,7 @@ export default class Api {
         .then(this._checkResponse);
     }
   
-    // Actualizar avatar
+    //  Actualizar avatar
     setUserAvatar({ avatar }) {
       return fetch(`${this._baseUrl}/users/me/avatar`, {
         method: 'PATCH',

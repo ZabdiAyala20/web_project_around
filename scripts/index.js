@@ -12,8 +12,16 @@ document.addEventListener('DOMContentLoaded', () => {
     avatarSelector: '.profile__avatar'
   });
 
+  const editPopup = document.querySelector('.popup_type_edit');
+  const editButton = document.querySelector('.profile__edit-button');
+
+  editButton.addEventListener('click', () => {
+    editPopup.classList.add('popup_opened');
+  });
+
+ 
   const popupWithImage = new PopupWithImage('.popup_type_image');
-  popupWithImage.setEventListeners();
+  popupWithImage.setEventListeners(); 
 
   function handleCardClick({ src, alt }) {
     popupWithImage.open({ src, alt });
@@ -26,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const section = new Section({
     renderer: (item) => {
-      const card = createCard(item.name, item.link, '#card-template');
+      const card = createCard(item.name, item.link, '#card__images');
       section.addItem(card);
     }
   }, '.cards__list');
@@ -36,11 +44,11 @@ document.addEventListener('DOMContentLoaded', () => {
       authorization: "b3c28384-40c7-4662-9598-a18e9b848d0e"
     }
   })
-    .then(res => res.json())
-    .then(cards => {
-      section.renderItems(cards);
-    })
-    .catch(err => console.log(err));
+  .then(res => res.ok ? res.json() : Promise.reject(`Error: ${res.status}`))
+  .then(cards => {
+    section.renderItems(cards);
+  })
+  .catch(err => console.error(err));
 
   const localSection = new Section({
     items: [
@@ -58,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   localSection.renderItems();
 
-  // Popup de perfil
+  // FORMULARIO DE PERFIL
   const openFormButton = document.querySelector('.profile__edit-button');
   const popup = document.querySelector('.popup');
   const popupOverlay = document.querySelector('.popup__overlay');
@@ -113,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Formulario para agregar nuevas imágenes
+  // FORMULARIO PARA AÑADIR IMAGEN
   const openImagesButton = document.querySelector('.profile__add-button');
   const templateContainer = document.querySelector('#form-images');
   const container = document.querySelector('.images__add_form-container');
@@ -138,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const titleInput = form.querySelector('input[name="titulo"]').value.trim();
         const urlInput = form.querySelector('input[name="url"]').value.trim();
 
-        if (titleInput === '' || urlInput === '') {
+        if (!titleInput || !urlInput) {
           alert("Los campos no pueden estar vacíos.");
           return;
         }
@@ -151,14 +159,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Borrar tarjetas
+
   document.addEventListener('click', (event) => {
     if (event.target.closest('.trash__button-image')) {
       event.target.closest('.card').remove();
     }
   });
 
-  // Like en tarjetas
+
   document.addEventListener('click', (event) => {
     if (event.target.closest('.card__like-button')) {
       event.target.closest('.card__like-button').classList.toggle('liked');

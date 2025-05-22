@@ -1,8 +1,8 @@
-import { Popup } from "./Popup.js";
+import { Popup } from './Popup.js';
+
 class PopupWithImage extends Popup {
   constructor(popupSelector) {
     super(popupSelector);
-    // Se corrige el selector para obtener la imagen, no el contenedor.
     this._image = this._popup.querySelector('.popup__image');
     this._caption = this._popup.querySelector('.popup__caption');
   }
@@ -14,6 +14,7 @@ class PopupWithImage extends Popup {
     super.open();
   }
 }
+
 
 export default PopupWithImage;
 
