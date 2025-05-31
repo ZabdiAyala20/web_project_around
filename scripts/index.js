@@ -1,7 +1,7 @@
 import { Card } from './components/card.js';
 import { FormValidator } from './components/FormValidator.js';
 import { Section } from './components/Section.js';
-import { Popup } from './components/Popup.js';
+import { Popup } from './components/popup.js';
 import PopupWithImage from './components/PopupWithImage.js';
 import UserInfo from './components/UserInfo.js';
 
@@ -19,9 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
     editPopup.classList.add('popup_opened');
   });
 
- 
   const popupWithImage = new PopupWithImage('.popup_type_image');
-  popupWithImage.setEventListeners(); 
+  popupWithImage.setEventListeners();
 
   function handleCardClick({ src, alt }) {
     popupWithImage.open({ src, alt });
@@ -44,11 +43,11 @@ document.addEventListener('DOMContentLoaded', () => {
       authorization: "b3c28384-40c7-4662-9598-a18e9b848d0e"
     }
   })
-  .then(res => res.ok ? res.json() : Promise.reject(`Error: ${res.status}`))
-  .then(cards => {
-    section.renderItems(cards);
-  })
-  .catch(err => console.error(err));
+    .then(res => res.ok ? res.json() : Promise.reject(`Error: ${res.status}`))
+    .then(cards => {
+      section.renderItems(cards);
+    })
+    .catch(err => console.error(err));
 
   const localSection = new Section({
     items: [
@@ -151,25 +150,55 @@ document.addEventListener('DOMContentLoaded', () => {
           return;
         }
 
-        const card = createCard(titleInput, urlInput);
-        localSection.addItem(card);
-        form.remove();
-        formVisible = false;
+        api.addCard({ name: titleInput, link: urlInput })
+          .then((newCardData) => {
+            const card = createCard(newCardData.name, newCardData.link);
+            localSection.addItem(card);
+            form.remove();
+            formVisible = false;
+          })
+          .catch((err) => {
+            console.error("Error al guardar la tarjeta en el servidor:", err);
+            alert("Ocurrió un error al guardar la tarjeta. Intenta de nuevo.");
+          });
       });
     }
   });
 
-
+  // ELIMINAR IMAGEN
   document.addEventListener('click', (event) => {
     if (event.target.closest('.trash__button-image')) {
       event.target.closest('.card').remove();
     }
   });
 
-
+  // LIKE
   document.addEventListener('click', (event) => {
     if (event.target.closest('.card__like-button')) {
       event.target.closest('.card__like-button').classList.toggle('liked');
     }
   });
+});
+
+// MINIATURAS
+document.addEventListener('DOMContentLoaded', () => {
+  const thumbnails = document.querySelectorAll('.thumb');
+  const popup = document.getElementById('popup');
+  const popupImg = document.getElementById('popupImg');
+  const popupText = document.getElementById('popupText');
+  const closeBtn = document.getElementById('closeBtn');
+
+  thumbnails.forEach(img => {
+    img.addEventListener('click', () => {
+      popupImg.src = img.src;
+      popupText.textContent = img.alt;
+      popup.style.display = 'flex';
+    });
+  });
+
+  closeBtn.addEventListener('click', () => {
+    popup.style.display = 'none';
+  });
+
+  console.log('Página cargada y lista para interactuar.');
 });

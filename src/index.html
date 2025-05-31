@@ -1,35 +1,34 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="author" content="Zabdi Ayala Aguilar">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Zabdi Ayala Aguilar" />
   <title>Alrededor</title>
-  <link rel="stylesheet" href="../pages/index.css">
+  <link rel="stylesheet" href="../pages/index.css" />
 </head>
 <body>
   <div class="page">
     <header class="header">
-      <img class="header__logo" src="../images/titulo.svg" alt="Logo">
+      <img class="header__logo" src="../images/titulo.svg" alt="Logo del sitio" />
     </header>
 
     <main class="content">
       <section class="profile">
-        <img class="profile__image" src="../images/perfil.jpeg" alt="Perfil">
+        <img class="profile__image" src="../images/perfil.jpeg" alt="Foto de perfil" />
         <div class="profile__info">
           <div class="profile__info-container">
             <h2 class="profile__name">Jacques Cousteau</h2>
             <p class="profile__about">Explorador</p>
           </div>
           <div class="button__edit-container">
-            <!-- Botón para editar perfil -->
-            <button class="profile__edit-button">
-              <img src="../images/Vector.png" alt="botón de edición">
+            <button class="profile__edit-button" aria-label="Editar perfil">
+              <img src="../images/Vector.png" alt="Icono de editar" />
             </button>
           </div>
         </div>
-        <button class="profile__add-button">
-          <img src="../images/Add Button.svg" alt="botón para agregar imágenes">
+        <button class="profile__add-button" aria-label="Agregar nueva imagen">
+          <img src="../images/Add Button.svg" alt="Agregar imagen" />
         </button>
       </section>
 
@@ -37,44 +36,33 @@
       <div class="popup popup_type_edit">
         <div class="popup__overlay"></div>
         <div class="popup__container">
-          <button class="popup__close-button" type="button">✖️</button>
+          <button class="popup__close-button" type="button" aria-label="Cerrar ventana">✖️</button>
           <form class="form" name="edit-profile-form">
             <h2 class="form__title">Editar perfil</h2>
-            <input type="text" name="name" class="form__input" placeholder="Nombre" required />
-            <input type="text" name="about" class="form__input" placeholder="Profesión" required />
+            <input type="text" name="name" class="form__input" placeholder="Nombre" required minlength="2" maxlength="30" />
+            <input type="text" name="about" class="form__input" placeholder="Profesión" required minlength="2" maxlength="30" />
             <button type="submit" class="form__submit-button">Guardar</button>
           </form>
         </div>
       </div>
-      
-        <!-- Popup de imagen -->
-<div class="popup popup_type_image">
-  <div class="popup__overlay"></div>
-  <div class="popup__container popup__container_image">
-    <button class="popup__close-button" type="button" aria-label="Cerrar"></button>
-    <img src="#" alt="Imagen ampliada" class="popup__image">
-    <p class="popup__caption"></p>
-  </div>
-</div>
 
-
-      <!-- Popup para imagen ampliada -->
+      <!-- Popup de imagen -->
       <div class="popup popup_type_image">
         <div class="popup__overlay"></div>
-        <div class="popup__container">
-          <button class="popup__close-button" type="button">✖️</button>
-          <img class="popup__image" src="" alt="">
+        <div class="popup__container popup__container_image">
+          <button class="popup__close-button" type="button" aria-label="Cerrar imagen">✖️</button>
+          <img src="#" alt="Imagen ampliada" class="popup__image" />
           <p class="popup__caption"></p>
         </div>
       </div>
 
-      <!-- Bloque para agregar imágenes -->
+      <!-- Contenedor del formulario para agregar imágenes -->
       <div class="images__add_form-container"></div>
-      
+
+      <!-- Galería de tarjetas -->
       <section class="cards">
         <ul class="cards__list"></ul>
       </section>
-      
     </main>
 
     <footer class="footer">
@@ -82,45 +70,32 @@
     </footer>
   </div>
 
-  <!-- Templates -->
+  <!-- Template: Formulario para agregar imágenes -->
   <template id="form-images">
     <form class="add__image-button-form">
-      <button class="close__add_button-images" type="button">✖️</button>
+      <button class="close__add_button-images" type="button" aria-label="Cerrar formulario">✖️</button>
       <h2 class="add__images-title">Nuevo lugar</h2>
-      <input class="input__images" type="text" id="titulo" name="titulo" placeholder="Título" minlength="2" maxlength="30" required autocomplete="off">
-      <input class="input__images" type="url" id="url" name="url" placeholder="Enlace de la imagen" minlength="2" required autocomplete="off">
+      <input class="input__images" type="text" id="titulo" name="titulo" placeholder="Título" minlength="2" maxlength="30" required autocomplete="off" />
+      <input class="input__images" type="url" id="url" name="url" placeholder="Enlace de la imagen" minlength="2" required autocomplete="off" />
       <button class="add__image-button" type="submit">Crear</button>
     </form>
   </template>
 
+  <!-- Template: Tarjeta de imagen -->
   <template id="card__images">
     <div class="card">
       <div class="card__info">
-        <button class="trash__button-image" aria-label="Eliminar">
-          <img src="../images/icons8-basura (1).svg" alt="Eliminar" class="trash__icon">
+        <button class="trash__button-image" aria-label="Eliminar imagen">
+          <img src="../images/icons8-basura (1).svg" alt="Eliminar" class="trash__icon" />
         </button>
-        <img class="card__image" src="../images/rural_noche.jpg" alt="Imagen predeterminada">
+        <img class="card__image" src="../images/rural_noche.jpg" alt="" />
         <div class="like-text__container">
           <p class="card__title">Pon el título</p>
-          <button class="card__like-button">
-            <img class="card__like-button" src="../images/likeButton.svg">
+          <button class="card__like-button" aria-label="Dar me gusta">
+            <img src="../images/likeButton.svg" alt="Me gusta" />
           </button>
         </div>
       </div>
-    </div>
-  </template>
-
-  <template id="popup-template">
-    <div class="popup__container">
-      <button class="popup__close-button" type="button">✖️</button>
-      <form class="popup__form">
-        <h2 class="popup__title">Editar perfil</h2>
-        <input type="text" id="name" name="name" class="popup__input" placeholder="Nombre" minlength="2" maxlength="30" required  autocomplete="off">
-        <span id="name-error" class="popup__error"></span>
-        <input type="text" id="about" name="about" class="popup__input" placeholder="Acerca de mí" minlength="2" maxlength="30" required  autocomplete="off">
-        <span id="about-error" class="popup__error"></span>
-        <button type="submit" class="popup__save-button" disabled>Guardar</button>
-      </form>
     </div>
   </template>
 
