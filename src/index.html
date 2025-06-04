@@ -32,19 +32,38 @@
         </button>
       </section>
 
-      <!-- Popup de editar perfil -->
-      <div class="popup popup_type_edit">
-        <div class="popup__overlay"></div>
-        <div class="popup__container">
-          <button class="popup__close-button" type="button" aria-label="Cerrar ventana">✖️</button>
-          <form class="form" name="edit-profile-form">
-            <h2 class="form__title">Editar perfil</h2>
-            <input type="text" name="name" class="form__input" placeholder="Nombre" required minlength="2" maxlength="30" />
-            <input type="text" name="about" class="form__input" placeholder="Profesión" required minlength="2" maxlength="30" />
-            <button type="submit" class="form__submit-button">Guardar</button>
-          </form>
-        </div>
-      </div>
+      <!-- Popup Editar Perfil -->
+<div class="popup popup_type_edit">
+  <div class="popup__overlay"></div>
+  <div class="popup__content">
+    <button class="popup__close-button" type="button" aria-label="Cerrar"></button>
+    <h3 class="popup__title">Editar perfil</h3>
+    <form name="edit-profile-form" class="popup__form" novalidate>
+      <input
+        type="text"
+        name="name"
+        class="popup__input"
+        placeholder="Nombre"
+        required
+        minlength="2"
+        maxlength="40"
+      />
+      <span class="popup__input-error name-input-error"></span>
+      <input
+        type="text"
+        name="about"
+        class="popup__input"
+        placeholder="Acerca de mí"
+        required
+        minlength="2"
+        maxlength="200"
+      />
+      <span class="popup__input-error about-input-error"></span>
+      <button type="submit" class="popup__save-button">Guardar</button>
+    </form>
+  </div>
+</div>
+
 
       <!-- Popup de imagen -->
       <div class="popup popup_type_image">
@@ -98,6 +117,39 @@
       </div>
     </div>
   </template>
+  <!-- diseño de ediciòn perfil -->
+<template id="popup-template">
+  <div class="popup__overlay popup__overlay_visible"></div>
+  <div class="popup__content">
+    <button class="popup__close-button" type="button"></button>
+    <form class="popup__form">
+      <h3 class="popup__title">Editar perfil</h3>
+      <input
+        class="popup__input"
+        type="text"
+        name="name"
+        placeholder="Nombre"
+        required
+        minlength="2"
+        maxlength="40"
+      />
+      <input
+        class="popup__input"
+        type="text"
+        name="about"
+        placeholder="Acerca de ti"
+        required
+        minlength="2"
+        maxlength="200"
+      />
+      <button class="popup__save-button" type="submit">Guardar</button>
+    </form>
+  </div>
+</template>
+
+
+<div class="popup"></div>
+
 
   <script type="module" src="../scripts/index.js"></script>
 </body>
