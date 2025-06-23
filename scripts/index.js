@@ -4,6 +4,24 @@ import { Section } from './components/Section.js';
 import { Popup } from './components/popup.js';
 import PopupWithImage from './components/PopupWithImage.js';
 import UserInfo from './components/UserInfo.js';
+import Api from './components/Api.js';
+
+const api = new Api({
+  baseUrl: "https://around-api.es.tripleten-services.com/v1",
+  headers: {
+    authorization: "b3c28384-40c7-4662-9598-a18e9b848d0e",
+    "Content-Type": "application/json"
+  }
+});
+
+const deletedCardIds = JSON.parse(localStorage.getItem('deletedCardIds')) || [];
+
+function guardarTarjetaLocalmente(id) {
+  if (!deletedCardIds.includes(id)) {
+    deletedCardIds.push(id);
+    localStorage.setItem('deletedCardIds', JSON.stringify(deletedCardIds));
+  }
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   const userInfo = new UserInfo({
@@ -12,12 +30,32 @@ document.addEventListener('DOMContentLoaded', () => {
     avatarSelector: '.profile__avatar'
   });
 
-  const editPopup = document.querySelector('.popup_type_edit');
-  const editButton = document.querySelector('.profile__edit-button');
+  const profileName = document.querySelector('.profile__name');
+  const profileAbout = document.querySelector('.profile__about');
 
-  editButton.addEventListener('click', () => {
-    editPopup.classList.add('popup_opened');
-  });
+  const savedProfile = JSON.parse(localStorage.getItem('profileData'));
+
+  if (savedProfile) {
+    userInfo.setUserInfo({
+      name: savedProfile.name,
+      about: savedProfile.about,
+      avatar: ''
+    });
+  } else {
+    api.getUserInfo()
+      .then(userData => {
+        userInfo.setUserInfo({
+          name: userData.name,
+          about: userData.about,
+          avatar: userData.avatar
+        });
+        localStorage.setItem('profileData', JSON.stringify({
+          name: userData.name,
+          about: userData.about
+        }));
+      })
+      .catch(err => console.error("Error al cargar los datos del usuario:", err));
+  }
 
   const popupWithImage = new PopupWithImage('.popup_type_image');
   popupWithImage.setEventListeners();
@@ -26,26 +64,42 @@ document.addEventListener('DOMContentLoaded', () => {
     popupWithImage.open({ src, alt });
   }
 
-  function createCard(title, url, templateId = '#card__images') {
-    const card = new Card(title, url, templateId, handleCardClick);
+  function handleDelete(cardElement, cardId) {
+    api.deleteCard(cardId)
+      .then(() => {
+        cardElement.remove();
+      })
+      .catch(() => {
+        console.warn("No se pudo eliminar del servidor, guardando localmente.");
+        guardarTarjetaLocalmente(cardId);
+        cardElement.remove();
+      });
+  }
+
+  function createCard(title, url, templateId = '#card__images', cardId = null) {
+    const card = new Card(
+      title,
+      url,
+      templateId,
+      handleCardClick,
+      cardId,
+      handleDelete
+    );
     return card.getCard();
   }
 
   const section = new Section({
     renderer: (item) => {
-      const card = createCard(item.name, item.link, '#card__images');
+      const card = createCard(item.name, item.link, '#card__images', item._id);
       section.addItem(card);
     }
   }, '.cards__list');
 
-  fetch("https://around-api.es.tripleten-services.com/v1/cards/", {
-    headers: {
-      authorization: "b3c28384-40c7-4662-9598-a18e9b848d0e"
-    }
-  })
-    .then(res => res.ok ? res.json() : Promise.reject(`Error: ${res.status}`))
+  // Renderizar tarjetas solo si no están en localStorage
+  api.getInitialCards()
     .then(cards => {
-      section.renderItems(cards);
+      const tarjetasFiltradas = cards.filter(card => !deletedCardIds.includes(card._id));
+      section.renderItems(tarjetasFiltradas);
     })
     .catch(err => console.error(err));
 
@@ -65,27 +119,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   localSection.renderItems();
 
-  // FORMULARIO DE PERFIL
+  // Popup Editar Perfil
   const openFormButton = document.querySelector('.profile__edit-button');
-  const popup = document.querySelector('.popup');
-  const popupOverlay = document.querySelector('.popup__overlay');
-  const profileName = document.querySelector('.profile__name');
-  const profileAbout = document.querySelector('.profile__about');
 
   function openPopup() {
-    const popupTemplate = document.querySelector('#popup-template').content.cloneNode(true);
-    popup.innerHTML = '';
-    popup.appendChild(popupTemplate);
-    popup.classList.add('popup_visible');
-    popupOverlay.style.display = 'block';
-
+    const popup = document.querySelector('.popup_type_edit');
+    const popupOverlay = popup.querySelector('.popup__overlay');
     const nameInput = popup.querySelector('input[name="name"]');
     const aboutInput = popup.querySelector('input[name="about"]');
+    const form = popup.querySelector('.popup__form');
 
     nameInput.value = profileName.textContent.trim();
     aboutInput.value = profileAbout.textContent.trim();
 
-    const form = popup.querySelector('.popup__form');
+    popup.classList.add('popup_opened');
+    popupOverlay.style.display = 'block';
+
     const validator = new FormValidator({
       inputSelector: 'input',
       submitButtonSelector: '.popup__save-button'
@@ -94,33 +143,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
     form.addEventListener('submit', (event) => {
       event.preventDefault();
-      profileName.textContent = nameInput.value;
-      profileAbout.textContent = aboutInput.value;
-      closePopup();
-    });
+      const name = nameInput.value.trim();
+      const about = aboutInput.value.trim();
+
+      profileName.textContent = name;
+      profileAbout.textContent = about;
+
+      localStorage.setItem('profileData', JSON.stringify({ name, about }));
+      closePopup(popup);
+    }, { once: true });
   }
 
-  function closePopup() {
-    popup.classList.remove('popup_visible');
-    popupOverlay.style.display = 'none';
-    popup.innerHTML = '';
+  function closePopup(popup) {
+    const overlay = popup.querySelector('.popup__overlay');
+    popup.classList.remove('popup_opened');
+    overlay.style.display = 'none';
   }
 
   openFormButton.addEventListener('click', openPopup);
 
   document.addEventListener('click', (event) => {
-    if (event.target.classList.contains('popup__close-button') || event.target.classList.contains('popup__overlay')) {
-      closePopup();
+    if (
+      event.target.classList.contains('popup__close-button') ||
+      event.target.classList.contains('popup__overlay')
+    ) {
+      const popup = event.target.closest('.popup');
+      if (popup) closePopup(popup);
     }
   });
 
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && popup.classList.contains('popup_visible')) {
-      closePopup();
+    if (event.key === 'Escape') {
+      const popup = document.querySelector('.popup_opened');
+      if (popup) closePopup(popup);
     }
   });
 
-  // FORMULARIO PARA AÑADIR IMAGEN
+  // Formulario agregar imagen
   const openImagesButton = document.querySelector('.profile__add-button');
   const templateContainer = document.querySelector('#form-images');
   const container = document.querySelector('.images__add_form-container');
@@ -152,8 +211,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         api.addCard({ name: titleInput, link: urlInput })
           .then((newCardData) => {
-            const card = createCard(newCardData.name, newCardData.link);
-            localSection.addItem(card);
+            const card = createCard(newCardData.name, newCardData.link, '#card__images', newCardData._id);
+            section.addItem(card);
             form.remove();
             formVisible = false;
           })
@@ -165,40 +224,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // ELIMINAR IMAGEN
-  document.addEventListener('click', (event) => {
-    if (event.target.closest('.trash__button-image')) {
-      event.target.closest('.card').remove();
-    }
-  });
-
-  // LIKE
+  // Botón like
   document.addEventListener('click', (event) => {
     if (event.target.closest('.card__like-button')) {
       event.target.closest('.card__like-button').classList.toggle('liked');
     }
   });
-});
-
-// MINIATURAS
-document.addEventListener('DOMContentLoaded', () => {
-  const thumbnails = document.querySelectorAll('.thumb');
-  const popup = document.getElementById('popup');
-  const popupImg = document.getElementById('popupImg');
-  const popupText = document.getElementById('popupText');
-  const closeBtn = document.getElementById('closeBtn');
-
-  thumbnails.forEach(img => {
-    img.addEventListener('click', () => {
-      popupImg.src = img.src;
-      popupText.textContent = img.alt;
-      popup.style.display = 'flex';
-    });
-  });
-
-  closeBtn.addEventListener('click', () => {
-    popup.style.display = 'none';
-  });
-
-  console.log('Página cargada y lista para interactuar.');
 });

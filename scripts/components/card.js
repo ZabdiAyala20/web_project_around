@@ -1,9 +1,11 @@
 export class Card {
-  constructor(title, url, templateId, handleCardClick) {
+  constructor(title, url, templateId, handleCardClick, cardId = null, handleDelete = null) {
     this._title = title;
     this._url = url;
     this._templateId = templateId;
     this._handleCardClick = handleCardClick;
+    this._cardId = cardId; 
+    this._handleDelete = handleDelete; 
   }
 
   getCard() {
@@ -22,9 +24,23 @@ export class Card {
     imageElement.src = this._url || 'img/default.jpg';
     imageElement.alt = this._title || 'Imagen sin título';
 
+
+    if (this._cardId) {
+      cardElement.dataset.id = this._cardId;
+    }
+
+    // Click en la imagen
     if (typeof this._handleCardClick === 'function') {
       imageElement.addEventListener('click', () => {
         this._handleCardClick({ src: this._url, alt: this._title });
+      });
+    }
+
+    // Botón de eliminar
+    const deleteButton = cardElement.querySelector('.trash__button-image');
+    if (deleteButton && typeof this._handleDelete === 'function') {
+      deleteButton.addEventListener('click', () => {
+        this._handleDelete(cardElement, this._cardId);
       });
     }
 
